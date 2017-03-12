@@ -1,0 +1,4 @@
+W przypadku wystąpienia dzielenia przez 0 w jednym z wątków danego procesu funkcja przechwytująca sygnał SIGFPE zaczyna być wykonywana w nieskończoność. Wiąże się to z tym, że po obsłóżeniu sygnału następuje powrót do miejsca, w którym został on złapany - tj. dzielenia przez 0. Pozostałe wątki procesu działają normalnie.
+
+Komputer własny z posawionym na maszynie wirtualnej sysetemem:
+Linux fedora 4.3.5-300.fc23.x86_64 #1 SMP Mon Feb 1 03:18:41 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux

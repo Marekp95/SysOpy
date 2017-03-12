@@ -1,0 +1,34 @@
+1. wysłanie sygnału do procesu, gdy żaden wątek nie ma zamaskowanego tego sygnału
+
+SIGUSR1: Proces kończy się wypisując na ekranie komunikat "User defined signal 1"
+SIGTERM: Proces kończy się wypisując na ekranie komunikat "Terminated"
+SIGKILL: Proces kończy się wypisując na ekranie komunikat "Killed"
+SIGSTOP: Proces zatrzymuje się wypisując na ekranie komunikat "Stopped"
+
+2. wysłanie sygnału do procesu, gdy główny wątek programu ma zamaskowany ten sygnał, a wszystkie pozostałe wątki nie,
+
+SIGUSR1: Proces ignoruje sygnał i nadal działa
+SIGTERM: Proces ignoruje sygnał i nadal działa
+SIGKILL: Blokada tego sygnału nie jest możliwa więc proces wypisuje komunikat "Killed" i kończy działanie
+SIGSTOP: Blokada tego sygnału nie jest możliwa więc proces wypisuje komunikat "Stopped" i zatrzymuje swoje działanie
+
+3. wysłanie sygnału do procesu, gdy wszystkie wątki mają zainstalowaną niestandardową procedurę obsługi przerwania, która wypisuje informację o nadejściu tego sygnału oraz PID i TID danego wątku
+
+SIGUSR1: Proces dalej działa, wypisana została informacja o otrzymaniu sygnału przez wątek główny.
+SIGTERM: Proces dalej działa, wypisana została informacja o otrzymaniu sygnału przez wątek główny.
+SIGKILL: Proces wypisuje komunikat "Killed" i kończy działanie
+SIGSTOP: Proces wypisuje komunikat "Stopped" i zatrzymuje swoje działanie
+
+4. wysłanie sygnału do wątku z zamaskowanym tym sygnałem
+
+SIGUSR1: Wątek dalej działa.
+SIGTERM: Wątek dalej działa.
+SIGKILL: Proces wypisuje komunikat "Killed" i kończy działanie
+SIGSTOP: Proces wypisuje komunikat "Stopped" i zatrzymuje swoje działanie
+
+5. wysłanie sygnału do wątku, w którym zmieniona jest procedura obsługi sygnału, jak przedstawiono w punkcie 3
+
+SIGUSR1: Wątek dalej działa, wypisana została tylko informacja o otrzymaniu sygnału przez wątek.
+SIGTERM: Wątek dalej działa, wypisana została tylko informacja o otrzymaniu sygnału przez wątek.
+SIGKILL: Proces wypisuje komunikat "Killed" i kończy działanie
+SIGSTOP: Proces wypisuje komunikat "Stopped" i zatrzymuje swoje działanie

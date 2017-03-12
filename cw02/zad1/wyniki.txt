@@ -1,0 +1,22 @@
+lib     Size: 4 Real time: 1936728 System time: 155 User time: 38
+sys     Size: 4 Real time: 1268823 System time: 112 User time: 14
+lib     Size: 512 Real time: 2306764 System time: 177 User time: 53
+sys     Size: 512 Real time: 1186976 System time: 109 User time: 9
+lib     Size: 1024 Real time: 2693211 System time: 204 User time: 64
+sys     Size: 1024 Real time: 1421322 System time: 131 User time: 10
+lib     Size: 4096 Real time: 2926730 System time: 255 User time: 37
+sys     Size: 4096 Real time: 2121776 System time: 200 User time: 12
+lib     Size: 8192 Real time: 4325444 System time: 382 User time: 49
+sys     Size: 8192 Real time: 3588081 System time: 341 User time: 17
+lib     Size: 4 Real time: 7158715 System time: 558 User time: 157
+sys     Size: 4 Real time: 2935910 System time: 257 User time: 36
+lib     Size: 512 Real time: 7173100 System time: 532 User time: 185
+sys     Size: 512 Real time: 4081811 System time: 363 User time: 44
+lib     Size: 1024 Real time: 8579629 System time: 635 User time: 222
+sys     Size: 1024 Real time: 4480585 System time: 405 User time: 42
+lib     Size: 4096 Real time: 12934187 System time: 1117 User time: 176
+sys     Size: 4096 Real time: 9065971 System time: 854 User time: 51
+lib     Size: 8192 Real time: 17630445 System time: 1579 User time: 183
+sys     Size: 8192 Real time: 12745729 System time: 1219 User time: 55
+
+Ze zmierzonych przeze mnie czasów można wnioskować, iż funkcje biblioteczne działają wolniej niż funkcje systemowe. Ponadto warto zwrócić uwagę na to, że spędzają one wielokrotnie więcej czasu w trybie użytkownika niż funkcje systemowe.
