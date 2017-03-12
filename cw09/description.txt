@@ -1,0 +1,20 @@
+Zadania - Zestaw 9
+Zadanie 1
+
+Zaimplementuj wielow¹tkowy program realizuj¹cy poprawne rozwi¹zanie problemu piêciu filozofów. Nale¿y zastosowaæ rozwi¹zanie wykorzystuj¹ce semafory nienazwane standardu POSIX.
+Zadanie 2
+Zaimplementuj z wykorzystaniem monitorów poprawne rozwi¹zanie problemu lotniskowca:
+
+Lotniskowiec ma pok³ad o pojemnoœci N samolotów oraz pas startowy. Pas startowy jest konieczny do startowania i l¹dowania samolotów, a mo¿e z niego korzystaæ w danej chwili tylko jeden samolot. Gdy liczba samolotów na lotniskowcu jest mniejsza ni¿ K (0 < K < N), priorytet w dostêpie do pasa startowego maj¹ samoloty l¹duj¹ce, w przeciwnym razie startuj¹ce.
+Napisaæ nale¿y algorytm samolotu, dzia³aj¹cego w pêtli wed³ug nastêpuj¹cego schematu:
+
+    start
+    lot
+    l¹dowanie
+    postój
+
+Lot i postój zaimplementowaæ nale¿y jako oczekiwanie przez pewn¹ losow¹ iloœæ czasu. Samolotów mo¿e byæ wiêcej ni¿ N, wtedy czêœæ z nich zawsze bêdzie w powietrzu. Priorytet X nad Y oznacza, ¿e dopóki s¹ samoloty oczekuj¹ce na X, ¿aden z tych oczekuj¹cych na Y nie zostanie dopuszczony do wykonania po¿¹danej operacji.
+
+Poprawne algorytmy rozwi¹zañ dla zadania 1 i 2 mo¿na znaleŸæ w ksi¹¿ce:
+
+Weiss, T. GruŸlewski "Programowanie wspó³bie¿ne i rozproszone w przyk³adach i zadaniach", Wydawnictwo Naukowo-Techniczne, Warszawa 1994.

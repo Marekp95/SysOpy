@@ -1,0 +1,41 @@
+Zadania - zestaw 2
+
+Zapoznaj siê ze sk³adni¹ i operacjami wykonywanymi przez poni¿sze funkcje:
+
+    funkcje operuj¹ce na plikach i katalogach: open, close, read, write, fcntl, stat, fstat, mkdir, rmdir, opendir, closedir, readdir, rewinddir, ftw, fopen, fclose, getc, putc,
+    funkcje i zmienne do obs³ugi b³êdów: perror, errno.
+
+Zadanie 1. Porównanie wydajnoœci systemowych i bibliotecznych funkcji we/wy
+
+Celem zadania jest napisanie programu porównuj¹cego wydajnoœæ systemowych i bibliotecznych funkcji wejœcia/wyjœcia. Zak³adamy, ¿e program operuje na pliku przechowuj¹cym zbiór pewnych rekordów. Dla uproszczenia, rekordem w zadaniu bêdzie ci¹g (tablica) bajtów. Wszystkie rekordy maj¹ tak¹ sam¹ d³ugoœæ. Po otwarciu pliku  program sortuje znajduj¹ce siê w nim rekordy za pomoc¹ sortowania przez wstawianie. Program mo¿e przechowywaæ w pamiêci tylko dwa rekordy równoczeœnie - rekord obecnie "wstawiany", oraz rekord, z którym jest porównywany. Po wykonaniu porównania rekord, z którym obecnie wstawiany by³ porównywany musi zostaæ z powrotem zapisany w odpowiednie miejsce pliku. Jako klucz sortowania przyjmujemy pierwszy bajt rekordu (interpretowany jako liczba bez znaku).
+Program sortuj¹cy powinien byæ napisany w dwóch wariantach:
+
+    przy u¿yciu funkcji systemowych: read i write,
+    przy u¿yciu funkcji bibliotecznych: fread i fwrite.
+
+Program powinien przyjmowaæ trzy argumenty wywo³ania: œcie¿kê do pliku z rekordami, d³ugoœæ (w bajtach) pojedynczego rekordu oraz wariant funkcji, których ma u¿ywaæ (lib - biblioteczne, sys - systemowe)
+
+Nale¿y równie¿ napisaæ program generuj¹cy plik z rekordami. Program ten przyjmuje w argumentach: nazwê pliku do wygenerowania, rozmiar pojedynczego rekordu i liczbê rekordów. Zawartoœæ generowanych rekordów powinna byæ losowa (mo¿na wykorzystaæ np. funkcjê rand).
+
+Dla obu wariantów implementacji przeprowadŸ pomiary czasu u¿ytkownika i czasu systemowego operacji sortowania. Testy wykonaj dla nastêpuj¹cych rozmiarów rekordu: 4, 512, 4096 i 8192 bajty. Dla ka¿dego rozmiaru rekordu wykonaj dwa testy ró¿ni¹ce siê liczb¹ rekordów w sortowanym pliku. Liczby rekordów dobierz tak, by czas sortowania mieœci³ siê w przedziale od kilku do kilkudziesiêciu sekund. Porównuj¹c dwa warianty implementacji nale¿y korzystaæ z identycznego pliku do sortowania (po wygenerowaniu, a przed sortowaniem, utwórz jego kopiê). Zmierzone czasy sortowania zestaw w pliku wyniki.txt. Do pliku dodaj komentarz podsumowuj¹cy wnioski z testów.
+Zadanie 2. Operacje na strukturze katalogów
+
+Napisz program przyjmuj¹cy dwa argumenty wywo³ania: œcie¿kê do katalogu w systemie plików oraz wzór praw dostêpu do pliku. Po uruchomieniu, program przeszukuje drzewo katalogów zakorzenione w œcie¿ce przekazanej w pierwszym argumencie i szuka w nim plików z prawami dostêpu takimi, jak podane w drugim argumencie. Program wypisuje na ekranie listê znalezionym plików. Przy ka¿dym znalezionym pliku program wypisuje równie¿ rozmiar pliku w bajtach i datê ostatniego doñ dostêpu. Program powinien wyszukiwaæ tylko pliki zwyczajne (bez dowi¹zañ, urz¹dzeñ blokowych, itp).
+
+Program nale¿y zaimplementowaæ w dwóch wariantach:
+
+    Korzystaj¹c z funkcji opendir, readdir oraz stat. Program powinien wypisywaæ œcie¿ki plików wzglêdem katalogu, od którego rozpoczynane jest wyszukiwanie.
+    Korzystaj¹c z funkcji nftw. Program powinien wypisywaæ bezwzglêdne œcie¿ki do znalezionych plików.
+
+Zadanie 3. Ryglowanie plików
+
+Napisz program umo¿liwiaj¹cy w trybie interaktywnym (tekstowym) wykonanie nastêpuj¹cych operacji dla pliku bêd¹cego jego argumentem:
+
+    ustawienie rygla do odczytu na wybrany znak pliku,
+    ustawienie rygla do zapisu na wybrany znak pliku,
+    wyœwietlenie listy zaryglowanych znaków pliku (z informacj¹ o numerze PID procesu bêd¹cego w³aœcicielem rygla oraz jego typie - odczyt/zapis),
+    zwolnienie wybranego rygla,
+    odczyt (funkcj¹ read) wybranego znaku pliku,
+    zmiana (funkcj¹ write) wybranego znaku pliku.
+
+Wybór znaku we wszystkich przypadkach polega na podaniu numeru bajtu w pliku. Do ryglowania nale¿y wykorzystaæ funkcjê fcntl i strukturê flock. Wykonaj eksperymenty uruchamiaj¹c program jednoczeœnie w dwóch terminalach dla tego samego pliku. Próbuj ryglowaæ (do odczytu lub do zapisu) te same znaki pliku i modyfikowaæ (lub odczytywaæ) wybrane znaki pliku. Zwróæ uwagê, ¿e domyœlnie ryglowanie dzia³a w trybie rygli zalecanych (advisory), a nie rygli wymuszanych (mandatory).

@@ -1,0 +1,8 @@
+12. Symulacja tunelu kolejowego przy u¿yciu mechanizmów systemowych
+
+
+Za³o¿enia: 1 tor w tunelu, kilka linii kolejowych prowadz¹cych do/z tunelu (np. po dwie dwukierunkowe z ka¿dej strony), generator generuje poci¹gi o ró¿nych priorytetach (ekspres, pospieszny, towarowy), poci¹g jest procesem,struktura w pamiêci wspólnej opisuje sytuacjê (po³o¿enie) na torach wjazdowych do tunelu, priorytety s¹ rozstrzygane w momencie decyzji, kto ma wjechaæ do i z tunelu.
+
+
+Procesy: zarz¹dca dopuszczaj¹cy poci¹gi do wjazdu, poci¹gi, korzystamy z monitorów-semaforów,
+zarz¹dca powinien posiadaæ informacjê od poci¹gu, jeœli/czy ten chce wjechaæ do tunelu, oraz odnoœnie wjazdu i wyjazdu z tunelu

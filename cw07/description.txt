@@ -1,0 +1,68 @@
+Zadania - Zestaw 7
+IPC - pamieæ wspólna, semafory
+
+Przydatne funkcje:
+
+System V:
+
+<sys/shm.h> <sys/ipc.h> - shmget, shmclt, shmat, shmdt
+
+POSIX:
+
+<sys/mman.h> - shm_open, shm_close, shm_unlink, mmap, munmap
+
+Zadanie 1
+
+Wykorzystuj¹c semafory i pamiêæ wspóln¹ z IPC Systemu V napisz program rozwi¹zuj¹cy problem producentów i konsumentów. Nale¿y napisaæ dwa odrêbne programy dla producenta i konsumenta. Po uruchomieniu, producent cyklicznie generuje zadania do wykonania. Tworz¹c zadanie producent losuje dodatni¹ liczbê ca³kowit¹ i umieszcza j¹ w tablicy przechowywanej w pamiêci wspólnej. Celem zadania jest sprawdzenie, czy liczba ta jest parzysta. Po utworzeniu nowego zadania producent wypisuje na ekranie komunikat postaci:
+
+(pid timestamp) Doda³em liczbê: x na pozycjê i. Liczba zadañ oczekuj¹cych: m.
+
+gdzie pid to PID procesu producenta, timestamp to aktualny czas (z dok³adnoœci¹ do milisekund),
+x to wylosowana liczba (treœæ zadania)
+m to liczba zadañ w pamiêci wspólnej (licz¹c z utworzonym zadaniem)
+i - indeks wpisywanej liczby.
+
+Konsument cyklicznie pobiera zadania umieszczone w pamiêci wspólnej. Po pobraniu zadania konsument sprawdza, czy dana liczba jest parzysta i wypisuje na ekranie jeden z komunikatów:
+
+(pid timestamp) Sprawdzi³em liczbê x na pozycji i - parzysta. Pozosta³o zadañ oczekuj¹cych: m
+
+(pid timestamp) sprawdzi³em liczbê x na pozycji i - nieparzysta. Pozosta³o zadañ oczekuj¹cych: m
+
+gdzie pid to PID procesu konsumenta,
+timestamp to czas pobrania zadania (z dok³adnoœci¹ do milisekund),
+x to liczba bêd¹ca treœci¹ zadania
+i -pozycja w tablicy
+m to liczba zadañ które pozosta³y w pamiêci wspólnej (po pobraniu wykonanego zadania).
+
+Zak³adamy, ¿e równoczeœnie pracuje wielu producentów i wielu konsumentów. Mo¿na napisaæ program demonstruj¹cy dzia³anie dla m konsumentów i n producentów, uruchamiaj¹cy odpowiedni¹ liczbê procesów, gdzie m i n s¹ argumentami wywo³ania programu.
+Rozmiar tablicy z zadaniami (w pamiêci wspólnej) jest ograniczony i ustalony na etapie kompilacji. Tablica ta indeksowana jest w sposób cykliczny - po dodaniu zadania na koñcu tablicy, kolejne zadania dodawana s¹ od indeksu 0.
+Korzystaj¹c w odpowiedni sposób z semaforów nale¿y zagwarantowaæ, ¿e liczba oczekuj¹cych zadañ nie przekroczy rozmiaru tablicy oraz ¿e okreœlony element tablicy nie bêdzie modyfikowany przez kilka procesów równoczeœnie. Rozmiar tablicy zadañ dobierz tak, aby mog³a zajœæ sytuacja, w której tablica jest ca³kowicie zape³niona. W pamiêci wspólnej oprócz tablicy mo¿na przechowywaæ tak¿e inne dane dzielone pomiêdzy procesami.
+Zadanie 2.
+
+Wykorzystuj¹c mechanizmy IPC - POSIX (pamiêæ wspólna, semafory) zaimplementuj poprawne rozwi¹zanie problemu czytelników i pisarzy przy nastêpuj¹cych za³o¿eniach:
+
+    jest wiele procesów czytelników i wiele procesów pisarzy,
+    dla uproszczenia mo¿na przyj¹æ, ¿e liczba czytelników jest jednak ograniczona,
+    do synchronizacji u¿ywane s¹ semafory,
+    dane umieszczone w pamiêci wspólnej to tablica liczb ca³kowitych,
+    pisarz cyklicznie modyfikuje w sposób losowy wybrane liczby w tablicy (losuje iloœæ liczb do modyfikacji, ich pozycje w tablicy oraz wartoœæ liczby wpisywanej za pierwszym razem, przy czym ka¿d¹ kolejn¹ zwiêksza o 1 a¿ do górnego zakresu liczb losowych)
+    czytelnik uruchamiany jest z jednym argumentem x - wartoœci¹ poszukiwanej w tablicy liczby i cyklicznie wykonuje operacjê przeszukiwania tablicy
+    pisarz raportuje na standardowym wyjœciu wykonanie swojej operacji (modyfikacji tablicy)
+
+    (pid timestamp) Wpisa³em liczbê x - na pozycjê i. Pozosta³o m zadañ
+
+    gdzie:
+    pid to PID procesu pisarza,
+    timestamp to aktualny czas (z dok³adnoœci¹ do milisekund),
+    x to wylosowana liczba do wpisania do tablicy,
+    i - pozycja w tablicy a m to liczba pozosta³ych modyfikacji w pamiêci wspólnej
+    analogiczny raport wykonuje czytelnik, dodaj¹c dodatkowo wynik operacji: iloœæ znalezionych liczb o szukanej wartoœci.
+
+    (pid timestamp) znalaz³em n liczb o wartoœci x
+
+    gdzie pid to PID procesu czytelnika,
+    timestamp to czas pobrania zadania (z dok³adnoœci¹ do milisekund),
+    n - liczba znalezionych dotychczas wartoœci x
+    x to liczba bêd¹ca treœci¹ zadania .
+    opcja -u dla czytelnika wypisze tylko zbiorczy raport zawieraj¹cy informacje, ile znaleziono liczb o wartoœci x.
+    mo¿na napisaæ dodatkowy program, który bêdzie symulowa³ dzia³anie m czytelników i n pisarzy dla wartoœci losowych.

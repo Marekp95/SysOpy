@@ -1,0 +1,34 @@
+Zadania - Zestaw 6
+IPC - kolejki komunikatów
+
+Przydatne funkcje:
+
+System V:
+
+<sys/msg.h> <sys/ipc.h> - msgget, msgctl, msgsnd, msgrcv, ftok
+
+POSIX:
+
+<mqueue.h> - mq_open, mq_send, mq_receive, mq_getattr, mq_setattr, mq_close, mq_unlink, mq_notify
+
+Zadanie 1. System V
+
+Celem zadania jest napisanie prostego programu typu klient-serwer, w którym komunikacja zrealizowana jest za pomoc¹ kolejek komunikatów.
+
+Serwer po uruchomieniu tworzy now¹ kolejkê komunikatów systemu V. Za pomoc¹ tej kolejki klienci bêd¹ wysy³aæ komunikaty do serwera. Œcie¿kê oraz id identyfikuj¹ce kolejkê (patrz funkcja ftok) serwer otrzymuje w argumentach wywo³ania. Klient bezpoœrednio po uruchomieniu tworzy kolejkê z unikalnym kluczem IPC (patrz IPC_PRIVATE) i wysy³a jej klucz komunikatem do serwera (œcie¿kê i id kolejki serwera klient otrzymuje w argumentach wywo³ania). Po otrzymaniu takiego komunikatu, serwer otwiera kolejkê klienta, przydziela klientowi identyfikator (np. numer w kolejnoœci zg³oszeñ) i odsy³a ten identyfikator do klienta (komunikacja w kierunku serwer->klient odbywa siê za pomoc¹ kolejki klienta). Po otrzymaniu identyfikatora klient rozpoczyna wykonywanie zadañ zleconych przez serwer (w pêtli). Wykonanie pojedynczego zadania przebiega nastêpuj¹co:
+
+    klient wysy³a serwerowi komunikat oznaczaj¹cy gotowoœæ do przyjêcia nowego zadania; w treœci komunikatu klient umieszcza swój identyfikator,
+
+    serwer odsy³a klientowi komunikat zawieraj¹cy losow¹ liczbê ca³kowit¹ wiêksz¹ od zera,
+
+    klient sprawdza czy otrzymana liczba jest pierwsza (mo¿na u¿yæ dowolnego algorytm sprawdzaj¹cego czy liczba jest pierwsza),
+
+    klient wysy³a serwerowi komunikat zawieraj¹cy jego identyfikator, sprawdzon¹ liczbê oraz informacjê, czy jest to liczba pierwsza. Jeœli liczba jest pierwsza serwer wypisuje na standardowe wyjœcie komunikat postaci: Liczba pierwsza: X (klient: Y), gdzie X to sprawdzona liczba a Y to identyfikator klienta.
+
+Poszczególne rodzaje komunikatów nale¿y identyfikowaæ za pomoc¹ typów komunikatów systemu V. Klient i serwer nale¿y napisaæ w postaci osobnych programów (nie korzystamy z funkcji fork). Serwer musi byæ w stanie pracowaæ z wieloma klientami naraz. Przed zakoñczeniem pracy ka¿dy proces powinien usun¹æ kolejkê któr¹ utworzy³ (patrz IPC_RMID oraz funkcja atexit). Dla uproszczenia mo¿na przyj¹æ, ¿e serwer przechowuje informacje o klientach w statycznej tablicy (rozmiar tablicy ogranicza liczbê klientów, którzy mog¹ siê zg³osiæ do serwera).
+
+Zadanie 2. POSIX
+
+Zrealizuj zadanie alogiczne do Zadania 1 wykorzystuj¹c kolejki komunikatów POSIX.
+
+Kolejka klienta powinna mieæ losow¹ nazwê zgodn¹ z wymaganiami stawianymi przez POSIX. Na typ komunikatu mo¿na zarezerwowaæ pierwszy bajt jego treœci. Przed zakoñczeniem pracy klient wysy³a do serwera komunikat informuj¹cy, ¿e serwer powinien zamkn¹æ po swojej stronie kolejkê klienta. Nastêpnie klient zamyka i usuwa swoj¹ kolejkê. Serwer przed zakoñczeniem pracy zamyka wszystkie otwarte kolejki i usuwa kolejkê, któr¹ utworzy³.

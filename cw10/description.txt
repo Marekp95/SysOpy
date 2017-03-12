@@ -1,0 +1,23 @@
+Zadania - Zestaw 10
+Celem zadania jest napisanie prostego komunikatora w architekturze klient/serwer. Bezpoœrednio po uruchomieniu klient tworzy nowy w¹tek, który powinien obs³ugiwaæ wejœcie/wyœcie z klawiatury. W¹tek g³ówny obs³uguje natomiast komunikacjê z serwerem. Po wczytaniu wiadomoœci z klawiatury klient wysy³a j¹ do serwera. Wraz z wiadomoœci¹ klient wysy³a równie¿ identyfikator u¿ytkownika nadaj¹cego wiadomoœæ. Po otrzymaniu wiadomoœci od klienta serwer rozsy³a j¹ do wszystkich pozosta³ych klientów. Po otrzymaniu wiadomoœci od serwera klient wypisuje na ekranie identyfikator u¿ytkownika, który j¹ wys³a³ oraz treœæ wiadomoœci. Zak³adamy, ¿e wiadomoœciami w systemie s¹ napisy zakoñczone znakiem nowej linii. Mo¿na przyj¹æ górne ograniczenie na d³ugoœæ napisu (na przyk³ad 256 znaków). W przypadku, gdy klient jest uruchomiony na tym samym komputerze co serwer, komunikacja powinna byæ prowadzona za pomoc¹ soketu z dziedziny Unixa. Klienci uruchomieni na innych komputerach komunikuj¹ siê z serwerem soketem z dziedziny Internet. Serwer powinien byæ napisany jako aplikacja jednow¹tkowa/jednoprocesowa i obs³ugiwaæ równoczeœnie sokety z obu dziedzin.
+
+Nale¿y zadbaæ, aby zarówno serwer jak i klient nie zu¿ywa³y wiêcej zasobów (np. CPU) ni¿ jest to konieczne. Ponadto, komunikacja w systemie powinna byæ w pe³ni asynchroniczna. Niedopuszczalne jest wiêc rozwi¹zanie, w którym klient wykonuje operacje nieblokuj¹ce w sposób zu¿ywaj¹cy nadmiernie czas procesora. Niedopuszczalne jest równie¿ ograniczenie zu¿ycia CPU poprzez zasypianie (np. funkcj¹ sleep) serwera lub klienta - rozwi¹zanie to nie jest w pe³ni asynchroniczne. Prawid³owa implementacja zadania powinna wykorzystywaæ funkcje z rodziny select/poll. W kliencie mo¿na dodatkowo wykorzystaæ sygna³y do komunikacji zdarzeñ pomiêdzy w¹tkami.
+
+Klient przyjmuje nastêpuj¹ce argumenty wywo³ania:
+
+    identyfikator u¿ytkownika (napis alfanumeryczny),
+    typ serwera: lokalny lub zdalny,
+    w przypadku serwera zdalnego: adres IP oraz port serwera,
+    w przypadku serwera lokalnego: œcie¿kê w systemie plików do soketu serwera.
+
+Serwer przyjmuje w argumentach wywo³ania numer portu sieciowego oraz œcie¿kê w systemie plików do soketu z dziedziny Unix.
+
+Komunikator nale¿y zaimplementowaæ w dwóch wymienionych poni¿ej wariantach.
+
+Zadanie 1
+
+Klienci i serwer u¿ywaj¹ protoko³u datagramowego a komunikacja jest bezpo³¹czeniowa. Serwer u¿ywa dok³adnie jednego soketu z dziedziny Unix oraz dok³adnie jednego soketu z dziedziny Internet. Serwer rejestruje nowego klienta gdy otrzyma od niego pierwszy komunikat do rozes³ania. Rejestracja jest wa¿na przez okreœlony okres czasu (np. 30 sekund) i jest automatycznie odnawiana gdy klient wyœle serwerowi kolejny komunikat. Serwer powinien co pewien czas sprawdzaæ listê klientów i usuwaæ z niej klientów, których okres rejestracji wygas³.
+
+Zadanie 2
+
+Klienci i serwer u¿ywaj¹ protoko³u strumieniowego i komunikacji po³¹czeniowej. Klient rejestruje siê w serwerze poprzez nawi¹zanie z nim po³¹czenia. Jeœli w okreœlonym czasie od nawi¹zania po³¹czenia (np. 30 sekund) klient nie wyœle ¿adnego komunikatu, serwer zamyka po³¹czenie z nim i usuwa go z listy klientów.

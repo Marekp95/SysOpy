@@ -1,0 +1,25 @@
+Zadania - zestaw 1
+Zarz¹dzanie pamiêci¹, biblioteki, pomiar czasu 
+Zadanie 1. Lista dwukierunkowa
+
+Zaprojektuj i przygotuj prosty zestaw funkcji (bibliotekê) dla list dwukierunkowych przechowuj¹cych struktury z danymi o kontaktach, umo¿liwiaj¹c¹:
+
+- tworzenie listy, usuwanie listy,
+
+- dodanie elementu do listy, usuniêcie elementu z listy,
+
+- wyszukiwanie elementu na liœcie, sortowanie listy.
+
+Pola elementu listy (struktury): Imiê, Nazwisko, Data urodzenia, email, telefon, adres.
+
+Przygotuj plik Makefile, zawieraj¹cy polecenia kompiluj¹ce pliki Ÿród³owe biblioteki oraz tworz¹ce biblioteki w dwóch wersjach: statyczn¹ i dzielon¹.
+
+Zadanie 2. Program korzystaj¹cy z biblioteki
+
+Napisz przyk³adowy program testuj¹cy dzia³anie funkcji z biblioteki zadania 1. W programie wybierz co najmniej 4 punkty kontrolne (wœród których jest pocz¹tek i koniec programu). Dla ka¿dego z tych punktów kontrolnych wypisz informacje o aktualnym czasie wykonania (rzeczywistym, u¿ytkownika, systemowym), opisuj¹ce dany punkt kontrolny: ró¿nice czasów w odniesieniu do pierwszego i poprzedniego punktu kontrolnego.
+
+Przygotuj plik Makefile, zawieraj¹cy polecenia kompiluj¹ce programy na trzy sposoby:
+- z wykorzystaniem bibliotek statycznych,
+- z wykorzystaniem bibliotek dzielonych (dynamiczne, ³adowane przy uruchomieniu programu),
+- z wykorzystaniem bibliotek ³adowanych dynamicznie (dynamiczne, ³adowane przez program),
+oraz uruchamiaj¹cy testy.

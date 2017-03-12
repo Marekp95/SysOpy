@@ -1,0 +1,17 @@
+Zadania - Zestaw 4
+Zestaw 4. Sygna³y
+
+Rodzaje sygna³ów: SIGINT, SIGQUIT, SIGKILL, SIGTSTP, SIGSTOP, SIGTERM, SIGSEGV, SIGHUP, SIGALARM, SIGCHLD, SIGUSR1, SIGUSR2
+Sygna³y czasu rzeczywistego: SIGRTMIN, SIGRTMIN+n, SIGRTMAX
+Przydatne polecenia Unix: kill, ps
+Przydatne funkcje systemowe: kill, raise, sigqueue, signal, sigaction, sigemptyset, sigfillset, sigaddset, sigdelset, sigismember, sigprocmask, sigpending, pause, sigsuspend
+Zadanie 1
+
+Napisz program printer wypisuj¹cy na standardowe wyjœcie zadany jako argument programu  wiersz tekstu. Po odebraniu sygna³u SIGTSTP program zaczyna wypisywaæ zadany tekst wspak. Po ponownym wys³aniu SIGTSTP program powraca do normalnego wypisywania tekstu. Po trzecim wys³aniu sygnalu SIGTSTP program powinien wypisywac zadany tekst dwukrotnie, po czwartym wyslaniu sygnaluSIGTSTP program powinien wypisaæ zadany tekst dwukrotnie wspak itd. Maksymalna liczba zwielokrotniania wypisania tekstu (max-num) powinna byæ parametrem przekazanym w argumencie wywo³ania programu. Po osi¹gniêciu wartoœci max-num liczba zwielokrotnienia tekstu maleje o 1, a nastêpnie po osi¹gniêciu 1 znowu roœnie. Program powinien umo¿liwiaæ wielokrotne przechodzenie przez powy¿szy cykl (sygna³em SIGTSTP). Program musi równie¿ obs³ugiwaæ sygna³ SIGINT. Po jego odebraniu program wypisuje komunikat "Odebrano sygna³ SIGINT" i koñczy dzia³anie. W kodzie programu, do przechwycenia sygna³ów u¿yj zarówno funkcji signal, jak i sigaction (np. SIGINT odbierz za pomoc¹ signal, a SIGTSTP za pomoc¹ sigaction) .
+Zadanie 2
+
+a) Napisz dwa programy: sender program wysy³aj¹cy sygna³y SIGUSR1 i  catcher - program zliczaj¹cy iloœæ odebranych sygna³ów. Iloœæ sygna³ów SIGUSR1wysy³anych przez pierwszy program powinna byæ okreœlana w parametrze wywo³ania tego programu. Po transmisji sygna³ów SIGUSR1 sender powinien wys³aæ sygna³ SIGUSR2, po otrzymaniu którego catcher wysy³a do sendera tyle sygna³ów SIGUSR1, ile sam ich otrzyma³ a „transmisjê” koñczy wys³aniem sygna³u SIGUSR2 i zakoñczeniem dzia³ania. Program sender po otrzymaniu sygna³u SIGUSR2 wyœwietla komunikat o iloœci otrzymanych sygna³ów SIGUSR1 oraz o tym, ile powinien ich otrzymaæ i koñczy dzia³anie. 
+
+b) Do programów w zadaniu 1 dodaj potwierdzenie odbioru sygna³u po ka¿dorazowym ich odebraniu przez program catcher. W tym celu, niech catcher wysy³a do sendera sygna³ SIGUSR1 informuj¹cy o odbiorze sygna³u. Sender powinien wys³aæ kolejny sygna³ dopiero po uzyskaniu tego potwierdzenia. Zapewnij rozwi¹zanie, w którym iloœæ sygna³ów odebranych jest zgodna z iloœci¹ sygna³ów wys³anych, i w którym nie dochodzi do zakleszczenia. 
+
+c) Zmodyfikuj programy opisane w zadaniu 1 tak, by przesy³any sygna³ by³ sygna³em czasu rzeczywistego (patrz man -s 7 signal). Jaka liczba sygna³ów bêdzie teraz odebrana?
